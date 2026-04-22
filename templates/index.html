@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nasal Polyp Segmentation</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <!-- ── HEADER ─────────────────────────────────────────────── -->
+    <header>
+        <div class="header-content">
+            <h1>Nasal Polyp Segmentation</h1>
+            <p>Automated CT Scan Analysis using Deep Learning</p>
+        </div>
+    </header>
+
+    <!-- ── MAIN ───────────────────────────────────────────────── -->
+    <main>
+
+        <!-- upload section -->
+        <div class="card upload-card">
+            <h2>Upload CT Scan</h2>
+
+            <div class="model-select">
+                <label for="model">Select Model:</label>
+                <select id="model">
+                    <option value="UNet3+">UNet3+ (Best — 93.03% Dice)</option>
+                    <option value="U-Net">U-Net (92.05% Dice)</option>
+                    <option value="DeepLabV3+">DeepLabV3+ (92.07% Dice)</option>
+                    <option value="MAnet">MAnet (91.48% Dice)</option>
+                    <option value="SegNet">SegNet (91.89% Dice)</option>
+                </select>
+            </div>
+
+            <div class="upload-area" id="uploadArea">
+                <input type="file" id="fileInput" accept="image/*" hidden>
+                <div class="upload-placeholder" id="uploadPlaceholder">
+                    <span class="upload-icon">📂</span>
+                    <p>Click to upload CT scan</p>
+                    <p class="upload-hint">Supports JPG, PNG, JPEG</p>
+                </div>
+                <img id="previewImage" class="preview-image" style="display:none"/>
+            </div>
+            <button id="changeBtn" style="display:none;">Change Image</button>
+
+            <button class="analyze-btn" id="analyzeBtn" disabled>
+                Analyze CT Scan
+            </button>
+        </div>
+
+        <!-- loading -->
+        <div class="loading" id="loading" style="display:none">
+            <div class="spinner"></div>
+            <p>Analyzing CT scan...</p>
+        </div>
+
+        <!-- results section -->
+        <div class="results" id="results" style="display:none">
+
+            <!-- severity badge -->
+            <div class="severity-card" id="severityCard">
+                <h2>Diagnosis Result</h2>
+                <div class="severity-badge" id="severityBadge"></div>
+                <div class="stats">
+                    <div class="stat">
+                        <span class="stat-label">Polyp Area</span>
+                        <span class="stat-value" id="polypArea">—</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-label">Polyp Pixels</span>
+                        <span class="stat-value" id="polypPixels">—</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-label">Model Used</span>
+                        <span class="stat-value" id="modelUsed">—</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- images -->
+            <div class="images-grid">
+                <div class="image-card">
+                    <h3>Original CT Scan</h3>
+                    <img id="originalImage" alt="Original CT"/>
+                </div>
+                <div class="image-card">
+                    <h3>Predicted Mask</h3>
+                    <img id="maskImage" alt="Predicted Mask"/>
+                </div>
+                <div class="image-card">
+                    <h3>Overlay Result</h3>
+                    <img id="overlayImage" alt="Overlay"/>
+                </div>
+            </div>
+
+            <!-- model info -->
+            <div class="model-info-card">
+                <h3>Model Performance</h3>
+                <div class="model-stats">
+                    <div class="model-stat">
+                        <span>U-Net</span>
+                        <div class="bar-container">
+                            <div class="bar" style="width: 92.05%">92.05%</div>
+                        </div>
+                    </div>
+                    <div class="model-stat">
+                        <span>SegNet</span>
+                        <div class="bar-container">
+                            <div class="bar" style="width: 91.89%">91.89%</div>
+                        </div>
+                    </div>
+                    <div class="model-stat">
+                        <span>DeepLabV3+</span>
+                        <div class="bar-container">
+                            <div class="bar" style="width: 92.07%">92.07%</div>
+                        </div>
+                    </div>
+                    <div class="model-stat">
+                        <span>MAnet</span>
+                        <div class="bar-container">
+                            <div class="bar" style="width: 91.48%">91.48%</div>
+                        </div>
+                    </div>
+                    <div class="model-stat best">
+                        <span>UNet3+ 🏆</span>
+                        <div class="bar-container">
+                            <div class="bar best-bar" style="width: 93.03%">93.03%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- ── FOOTER ──────────────────────────────────────────────── -->
+    <footer>
+        <p>Automated Nasal Polyp Segmentation using CNN-Based Encoder-Decoder Architecture</p>
+        <p>Models: U-Net | SegNet | DeepLabV3+ | MAnet | UNet3+</p>
+    </footer>
+
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
