@@ -20,7 +20,7 @@ This project provides a user-friendly interface to upload scans and visualize se
   - Segmentation Mask
   - Overlay Output
 - Polyp area calculation (in pixels and mm²)
-- Multiple model selection (if applicable)
+- Multiple model selection 
 - Clean and interactive UI
 
 ---
